@@ -1,0 +1,46 @@
+
+{% load custom_filters %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Search News</title>
+</head>
+<body>
+
+
+
+<!-- Перед таблицей добавим форму для поиска -->
+<form method="GET">
+    {{ filter.form }} <!-- Форму от фильтров за нас сделает Django. А вот кнопку, увы, придётся делать самому -->
+    <input type="submit" value="Найти">
+</form>
+
+<table>
+    <thead>
+        <th>
+            Заголовок
+        </th>
+        <th>
+            Новость
+        </th>
+
+    </thead>
+    {% for news_ in filter.qs %} <!-- поменяем news на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
+    <tr>
+        <td>
+            {{ news_.title|censor|truncatewords:5 }}
+        </td>
+        <td>
+            {{ news_.text|censor|truncatewords:50 }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+</body>
+</html>
+
+
