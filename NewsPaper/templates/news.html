@@ -15,11 +15,11 @@
         <div class="left">
             <div class="article-title">
                 <p>On Feb 25, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>104 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>52</a></p>
-                <a class="title" href="single.html">{{ news_.title|censor }}</a>
+                <a class="title" href="{% url 'newsone' news_.id %}" target="_blank">{{ news_.title|censor }}</a>
             </div>
             <div class="article-text">
-                <p>{{ news_.text|censor|truncatewords:50 }}</p>
-                <a href="single.html"></a>
+
+                <a href="{% url 'newsone' news_.id %}" target="_blank"><p>{{ news_.text|censor|truncatewords:50 }}</p></a>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -58,6 +58,33 @@
     {% endif %}
     </h3>
 {% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form }} <!-- Теперь нам нужна только готовая форма и кнопка -->
+    <input type="submit" value="Добавить новость">
+</form>
+
+<!--<form method="POST">-->
+<!--    {% csrf_token %}-->
+<!--    <label for="title_">Заголовок</label>-->
+<!--    <input name="title_" type="text">-->
+
+<!--    <label for="text_">Текст</label>-->
+<!--    <input name="text_" type="text">-->
+
+<!--    &lt;!&ndash; Здесь будет список авторов. &ndash;&gt;-->
+<!--    <select-->
+<!--            name="author" size="4"> {% for author in authors %} <option value="{{ author.id }}"> {{ author.authorUser }} </option> {% endfor %}-->
+<!--    </select>-->
+
+<!--&lt;!&ndash; Здесь будет список категорий. &ndash;&gt;-->
+<!--    <select-->
+<!--            name="category" size="4"> {% for category in categories %} <option value="{{ category.id }}"> {{ category.name }} </option> {% endfor %}-->
+<!--    </select>-->
+<!--    <input type="submit" value="Добавить новость">-->
+<!--</form>-->
+
 {% endblock all_news %}
 
 

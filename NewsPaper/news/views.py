@@ -6,6 +6,7 @@ from django.core.paginator import Paginator # импортируем класс,
 from .models import *
 from .filters import PostFilter # импортируем недавно написанный фильтр
 from datetime import datetime
+from .forms import NewsForm # импортируем нашу форму
 
 # пишем представление
 class PostList(ListView):
@@ -19,6 +20,7 @@ class PostList(ListView):
     context_object_name = 'news'
     ordering = ['-id']
     paginate_by = 10
+    form_class = NewsForm  # добавляем форм класс, чтобы получать доступ к форме через метод POST
 
     # метод get_context_data нужен нам для того, чтобы мы могли передать переменные в шаблон.
     # В возвращаемом словаре context будут храниться все переменные. Ключи этого словаря и есть переменные,
@@ -26,7 +28,27 @@ class PostList(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['time_now'] = datetime.now()
+        context['categories'] = Category.objects.all()
+        context['authors'] = Author.objects.all()
+        context['form'] = NewsForm()
         return context
+
+
+
+    def post(self, request, *args, **kwargs):
+        # берём значения для новости из POST-запроса отправленного на сервер
+        form = self.form_class(request.POST)  # создаём новую форму, забиваем в неё данные из POST-запроса
+
+        if form.is_valid():  # если пользователь ввёл всё правильно и нигде не накосячил, то сохраняем новый товар
+            form.save()
+
+        return super().get(request, *args, **kwargs)
+
+
+# дженерик для получения деталей о товаре
+class PostDetailView(DetailView):
+    template_name = 'newsone.html'
+    queryset = Post.objects.all()
 
 
 # пишем представление
@@ -49,9 +71,9 @@ class PostSearch(ListView):
 
 
 
-
-class PostDetail(DetailView):
-    model = Post
-    template_name = 'newsone.html'
-    context_object_name = 'newsone'
+#
+# class PostDetail(DetailView):
+#     model = Post
+#     template_name = 'newsone.html'
+#     context_object_name = 'newsone'
 
