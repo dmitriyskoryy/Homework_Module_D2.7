@@ -47,7 +47,7 @@ class PostList(ListView):
 
 # дженерик для получения деталей о товаре
 class PostDetailView(DetailView):
-    template_name = 'newsone.html'
+    template_name = 'news_detail.html'
     queryset = Post.objects.all()
 
 
@@ -74,6 +74,6 @@ class PostSearch(ListView):
 #
 # class PostDetail(DetailView):
 #     model = Post
-#     template_name = 'newsone.html'
+#     template_name = 'news_detail.html'
 #     context_object_name = 'newsone'
 

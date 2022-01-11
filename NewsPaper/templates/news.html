@@ -10,16 +10,15 @@
 
 {% block all_news %}
 <!--{{ news|length }}-->
-{% for news_ in news  %}
+{% for new in news  %}
     <div class="article">
         <div class="left">
             <div class="article-title">
                 <p>On Feb 25, 2015 <a class="span_link" href="#"><span class="glyphicon glyphicon-comment"></span>0 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-eye-open"></span>104 </a><a class="span_link" href="#"><span class="glyphicon glyphicon-thumbs-up"></span>52</a></p>
-                <a class="title" href="{% url 'newsone' news_.id %}" target="_blank">{{ news_.title|censor }}</a>
+                <a class="title" href="{% url 'news_detail' new.id %}" target="_blank">{{ new.title|censor }}</a>
             </div>
             <div class="article-text">
-
-                <a href="{% url 'newsone' news_.id %}" target="_blank"><p>{{ news_.text|censor|truncatewords:50 }}</p></a>
+                <a href="{% url 'news_detail' new.id %}" target="_blank"><p>{{ new.text|censor|truncatewords:50 }}</p></a>
                 <div class="clearfix"></div>
             </div>
         </div>
