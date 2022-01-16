@@ -11,6 +11,9 @@ class Author(models.Model):
     authorUser = models.OneToOneField(User, on_delete=models.CASCADE)
     ratingAuthor = models.SmallIntegerField(default=0)
 
+    def __str__(self):
+        return f'{self.authorUser.username}'
+
     # с помощью post_set.all() получаем все связанные посты
     # метод aggregate служит для работы с множеством записей
     # создаем значение postRating, куда присваиваем сумму всех значений поля rating
@@ -31,6 +34,9 @@ class Author(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
+
+    def __str__(self):
+        return f'{self.name}'
 
 
 class Post(models.Model):
@@ -54,6 +60,9 @@ class Post(models.Model):
     text = models.TextField()
     rating = models.SmallIntegerField(default=0)
 
+    def __str__(self):
+        return f'{self.author.authorUser.username} {self.postCategory.name}'
+
     def like(self):
         self.rating += 1
         self.save()
@@ -65,9 +74,14 @@ class Post(models.Model):
     def preview(self):
         return self.text[0:123] + '...'
 
+    #добавим ссылку на текущий объект. Для того, чтобы при создании объекта или переходе
+    #к его деталям не прописывать в каждом дженерике succes_url.
+    def get_absolute_url(self):  # добавим абсолютный путь, чтобы после создания нас перебрасывало на страницу с товаром
+        return f'/news/{self.id}'
 
 
-# промежуточная модель
+
+    # промежуточная модель
 class PostCategory(models.Model):
     postThrough = models.ForeignKey(Post, on_delete=models.CASCADE)
     categoryThrough = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -89,6 +103,7 @@ class Comment(models.Model):
             return self.commentPost.author.authorUser.username
         except:
             return self.commentUser.username
+
 
     def like(self):
         self.rating += 1

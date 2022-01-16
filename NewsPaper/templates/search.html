@@ -12,8 +12,36 @@
 
 
 <!-- Перед таблицей добавим форму для поиска -->
+<!--<form method="GET">-->
+<!--    {{ filter.form }} &lt;!&ndash; Форму от фильтров сделает Django. кнопку делаем сами &ndash;&gt;-->
+<!--    <input type="submit" value="Найти 1">-->
+<!--</form>-->
+
+<!--<table>-->
+<!--    <thead>-->
+<!--        <th>-->
+<!--            Заголовок-->
+<!--        </th>-->
+<!--        <th>-->
+<!--            Новость-->
+<!--        </th>-->
+
+<!--    </thead>-->
+<!--    {% for news_ in search %} &lt;!&ndash; search (context_object_name класса PostSearch, views.py), т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию &ndash;&gt;-->
+<!--    <tr>-->
+<!--        <td>-->
+<!--            {{ news_.title|censor|truncatewords:5 }}-->
+<!--        </td>-->
+<!--        <td>-->
+<!--            {{ news_.text|censor|truncatewords:50 }}-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    {% endfor %}-->
+<!--</table>-->
+
 <form method="GET">
-    {{ filter.form }} <!-- Форму от фильтров за нас сделает Django. А вот кнопку, увы, придётся делать самому -->
+<!--    {{ filter.form.as_p }}-->
+    {{ filter.form }}
     <input type="submit" value="Найти">
 </form>
 
@@ -25,15 +53,28 @@
         <th>
             Новость
         </th>
+        <th>
+            Дата
+        </th>
+        <th>
+            Автор
+        </th>
 
     </thead>
-    {% for news_ in filter.qs %} <!-- поменяем news на filter.qs, т.к. теперь мы забираем уже отобранную по каким-то параметрам информацию -->
+
+    {% for obj in search %}
     <tr>
         <td>
-            {{ news_.title|censor|truncatewords:5 }}
+            {{ obj.title|censor|truncatewords:5 }}
         </td>
         <td>
-            {{ news_.text|censor|truncatewords:50 }}
+            {{ obj.text|censor|truncatewords:50 }}
+        </td>
+        <td>
+            {{ obj.dateCreation }}
+        </td>
+        <td>
+            {{ obj.author }}
         </td>
     </tr>
     {% endfor %}

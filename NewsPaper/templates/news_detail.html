@@ -8,15 +8,14 @@
 
 {% block single_news %}
 <div class="blog-posts">
-			<h3 class="post">FFFF {{ new.title|censor }}</h3>
+
+	<!--в переменную new, значение попадает из views.py/PostDetailView/context_object_name = 'new'-->
+			<h3 class="post">{{ new.title|censor }}</h3>
 				<div class="last-article">
-					<p class="artext">ggggggg {{ new.text|censor }}</p><br><br>
-
-
+					<p class="artext">{{ new.text|censor }}</p><br><br>
+					<a href="{% url 'news_update' new.id %}"><u>Изменить новость</u></a>  <!--  добавим ссылку на изменение новости-->
 					<div class="clearfix"></div>
-					<!--related-posts-->
 
-				<!--//related-posts-->
 
 				<div class="response">
 					<h4>Responses</h4>

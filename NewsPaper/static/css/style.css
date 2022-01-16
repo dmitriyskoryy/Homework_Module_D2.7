@@ -653,7 +653,7 @@ a.span_link:hover {
 	color:#000;
 }
 .article-text a {
-    float: right;
+    float: left;
 }
 .article-text a:hover {
 	color:#000;
