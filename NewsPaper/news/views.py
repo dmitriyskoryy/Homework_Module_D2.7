@@ -1,5 +1,6 @@
 #  views.generic позволит выводить все объекты из БД в браузер "в HTML"
 from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.core.paginator import Paginator # импортируем класс, позволяющий удобно осуществлять постраничный вывод
 

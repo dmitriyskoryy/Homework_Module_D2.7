@@ -41,7 +41,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     #связь один ко многим с моделью Author
-    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE, verbose_name='Автор')
 
     NEWS = 'NW'
     ARTICLE = 'AR'
@@ -51,13 +51,13 @@ class Post(models.Model):
     )
     categoryType = models.CharField(max_length=2, choices=CATEGORY_CHOICES, default=ARTICLE)
 
-    dateCreation = models.DateTimeField(auto_now_add=True)
+    dateCreation = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
 
     # связь многие ко многим с моделью Category, through - промежуточная модель PostCategory
-    postCategory = models.ManyToManyField(Category, through='PostCategory')
+    postCategory = models.ManyToManyField(Category, through='PostCategory', verbose_name='Категория')
 
-    title = models.CharField(max_length=128)
-    text = models.TextField()
+    title = models.CharField(max_length=128, verbose_name='Заголовок')
+    text = models.TextField(verbose_name='Текст статьи')
     rating = models.SmallIntegerField(default=0)
 
     def __str__(self):

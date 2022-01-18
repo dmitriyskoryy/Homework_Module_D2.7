@@ -6,7 +6,8 @@
 <h3>Создать новость</h3>
 <form method="POST">
     {% csrf_token %}
-    {{ form }} <!-- Теперь нужна только готовая форма и кнопка -->
+    {{ form.as_p }} <!-- Теперь нужна только готовая форма и кнопка -->
+    {{ form.as_p.errors }}
     <input type="submit" value="Добавить новость">
 </form>
 {% endblock create_news %}
