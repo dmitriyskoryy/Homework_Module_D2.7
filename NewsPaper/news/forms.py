@@ -22,7 +22,7 @@ class NewsForm(ModelForm):
     def clean_title(self):
         title = self.cleaned_data['title']
         if len(title) > 255:
-            raise ValidationError('Длина заголовка не более 10 символов!')
+            raise ValidationError('Длина заголовка не более 255 символов!')
 
         return title
 
