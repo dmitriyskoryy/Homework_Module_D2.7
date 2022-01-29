@@ -1,8 +1,14 @@
 #  views.generic позволит выводить все объекты из БД в браузер "в HTML"
 from django.shortcuts import render
-from django.contrib.auth.mixins import LoginRequiredMixin
+
+
 from django.views import generic
 from django.core.paginator import Paginator # импортируем класс, позволяющий удобно осуществлять постраничный вывод
+
+#для того чтобы сделать декорированное представление с помощью миксина LoginRequiredMixin,
+# которое будет выполняться если пользователь аутентифицирован на сайте
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 from datetime import datetime
 
@@ -46,7 +52,7 @@ class PostDetailView(generic.DetailView):
 
 
 # дженерик для создания объекта. Надо указать только имя шаблона и класс формы . Остальное он сделает сам
-class PostCreateView(generic.CreateView):
+class PostCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
@@ -60,7 +66,7 @@ class PostCreateView(generic.CreateView):
 
 
 # дженерик для редактирования объекта
-class PostUpdateView(generic.UpdateView):
+class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'news_create.html'
     form_class = NewsForm
 
@@ -70,8 +76,8 @@ class PostUpdateView(generic.UpdateView):
         return Post.objects.get(pk=id)
 
 
-# дженерик для удаления товара
-class PostDeleteView(generic.DeleteView):
+# дженерик для удаления
+class PostDeleteView(LoginRequiredMixin, generic.DeleteView):
     template_name = 'news_delete.html'
     queryset = Post.objects.all()
     success_url = '/news/'

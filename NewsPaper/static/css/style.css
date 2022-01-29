@@ -55,20 +55,14 @@ label{
     padding: 0 15px;
 	float:left;
 }
-.num {
-    float: right;
-}
-.num p {
-    color: #dddddd;
-    font-size: 0.93em;
-    text-decoration: none;
-    font-weight: 400;
-    text-transform: capitalize;
-}
-.top-menu  ul li {
+
+
+.top-menu ul li {
 	display:inline-block;
     margin-right: 19px;
 }
+
+
 .top-menu ul li a {
     color: #dddddd;
     font-size: 0.93em;
@@ -79,6 +73,8 @@ label{
 .top-menu ul li a:hover {
 	color:#fff;
 }
+
+
 .header-bottom {
     padding: 2em 0 0.8em 0;
 	border-bottom: 1px solid #eee;

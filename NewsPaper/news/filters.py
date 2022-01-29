@@ -46,3 +46,15 @@ class PostFilter(FilterSet):
 #     class Meta:
 #         model = Post
 #         fields = ['dateCreation']
+
+
+# Ещё есть вариант - создавать фильтры не через class Meta, а напрямую - поля в классе PostFilter задавать статически:
+#     title = CharFilter(‘title’,
+#                                label=‘Заголовок содержит:’,
+#                                lookup_expr=‘icontains’,
+#                                )
+#     author = ModelMultipleChoiceFilter(‘author’,
+#                                label=‘Автор:’,
+#                                lookup_expr=‘exact’,
+#                                queryset=Author.objects.all()
+#                                 )
